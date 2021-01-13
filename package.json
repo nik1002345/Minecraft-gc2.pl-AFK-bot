@@ -1,0 +1,26 @@
+{
+  "name": "minecraft-logi",
+  "version": "1.0.0",
+  "description": "Minecraftowe logi",
+  "main": "index.js",
+  "engines": {
+    "node": "14.15.0"
+  },
+  "scripts": {
+    "dev": "node src/index.js",
+    "dev:watch": "nodemon src/index.js",
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "nik1002",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "discord-webhook-node": "^1.1.8",
+    "discord.js": "^12.5.1",
+    "js-yaml": "^4.0.0",
+    "mineflayer": "^2.40.1",
+    "nodemon": "^2.0.7",
+    "prismarine-item": "^1.5.0"
+  }
+}

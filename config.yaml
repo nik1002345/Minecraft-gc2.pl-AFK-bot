@@ -1,0 +1,78 @@
+######################################
+#                                    #
+#            Konfig bota             #
+#                                    #
+######################################
+
+# Nick użytkownika, minimalnie 3 znaki, a maksymalnie 16 znaków,
+# może składać się tylko z dużych i małych liter a-Z,
+# cyfr oraz podłogi ( _ )
+username: 'Fajny_Nick123'
+
+# Hasło do konta
+password: 'SuperTajneHaslo'
+
+# Czterocyfrowy pin do konta, jeśli nie jest przypisany do konta zostawić puste
+pin: ''
+
+# Tryb na który ma wbić bot - należy podać skrót trybu
+
+# Dostępne tryby:
+# SkyBlock 1 - sb1
+# SkyBlock 2 - sb2
+# SkyBlock 3 - sb3
+# SkyBlock 4 - sb4
+# MineBlock 1 - mb1
+# MineBlock 2 - mb2
+# SeaBlock - sea
+# LavaBlock - lb
+# PvP - pvp
+# Creative - cr
+tryb: 'mb1'
+
+# Połączenie bota z Discordem
+discordConnection:
+
+  # Czy opcja ma być włączona
+  # true - tak
+  # false - nie
+  enable: false
+
+  # Token dostępu do Discordowego bota
+  botToken: ''
+
+  # Adres URL webhooka na Discordzie, na który będą wysyłane wiadomości z czatu
+  webhookURL: ''
+  
+  # Nazwa webhooka
+  webhookName: ''
+
+  # Adres URL do ikony webhooka
+  webhookIconURL: ''
+  
+  # ID właściciela bota, który będzie mógł pisać na czacie w mc przez Discorda
+  ownerID: ''
+
+  # ID kanału z którego bot będzie brał wiadomości właściciela bota do wysłania
+  channelID: ''
+
+  # ID servera na Discordzie na którym znajduje się wyżej opisany kanał 
+  serverID: ''
+
+# Komendy które mają się wykonać po wejściu bota na tryb
+commands:
+  - '/is'
+  - '/afk'
+
+# Automatyczne wejście do wagonika po wykonaniu komend
+# true - włączone
+# false - wyłączone
+autoMount: false
+
+# Anty kick, do użycia na własną odpowiedzialność
+# Do działania wymagane jest trzymanie w ostatnim slocie paska narzędzi (9),
+# jakiegoś bloczka, bądź nic nie robiącegu itemku jak np. patyk, węgiel, redstone itd.
+# Przy ewentualnym wyrzuceniu z serwera bot się od razu połączy z powrotem
+# true - włączone
+# false - wyłączone
+antyKick: false
