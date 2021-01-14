@@ -53,6 +53,7 @@ let wWyborzeTrybu = false;
 let naTrybie = false;
 let logowanie = false
 let autologin = false;
+let sendMsgToWebhook = false
 
 // Creating minecraft bot
 let bot;
@@ -69,6 +70,7 @@ function CreateBot() {
     naTrybie = false;
     logowanie = false
     autologin = false;
+    sendMsgToWebhook = false
     
     bot.on('message', function (message) {
         var msg = (!message.text && message.extra ? message.extra.map(msg => msg.text).join("") : message.text)
@@ -76,7 +78,9 @@ function CreateBot() {
         console.log(message.toAnsi())
         // console.log(msg)
         if (userConfig.discordConnection.enable) {
-            hook.send(`\`\`\`yaml\n${msg}\`\`\``)
+            if (sendMsgToWebhook) {
+                hook.send(`\`\`\`yaml\n${msg}\`\`\``)
+            }
         }
     
         if (!zalogowany) {
@@ -103,6 +107,7 @@ function CreateBot() {
     
         if (naTrybie) {
             setTimeout(() => {
+                sendMsgToWebhook = true
                 var i = 0
                 for (let cmd of userConfig.commands) {
                     i++
