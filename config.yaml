@@ -31,6 +31,8 @@ pin: ''
 tryb: 'mb1'
 
 # Połączenie bota z Discordem
+# Umożliwia otrzymywanie przez webhooka wiadomości z czatu
+# oraz wysyłanie komend/wiadomości do mc przez ustawiony kanał
 discordConnection:
 
   # Czy opcja ma być włączona
@@ -60,6 +62,8 @@ discordConnection:
   serverID: ''
 
 # Komendy które mają się wykonać po wejściu bota na tryb
+# Jeśli chcesz aby bot wbił na wyspę/grotę warto ustawić na niej wpierw /home
+# i do niego się tepać, ponieważ /is ma skłonności do nie działania po wbiciu na tryb :p
 commands:
   - '/is'
   - '/afk'
@@ -72,7 +76,7 @@ autoMount: false
 # Anty kick, do użycia na własną odpowiedzialność
 # Do działania wymagane jest trzymanie w ostatnim slocie paska narzędzi (9),
 # jakiegoś bloczka, bądź nic nie robiącegu itemku jak np. patyk, węgiel, redstone itd.
-# Przy ewentualnym wyrzuceniu z serwera bot się od razu połączy z powrotem
+# A przy ewentualnym wyrzuceniu z serwera bot od razu połączy się z powrotem
 # true - włączone
 # false - wyłączone
 antyKick: false

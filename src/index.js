@@ -46,6 +46,14 @@ if (userConfig.discordConnection.enable) {
     hook.setAvatar(userConfig.discordConnection.webhookIconURL)
 }
 
+function HookSend(msg) {
+    if (userConfig.discordConnection.enable) {
+        hook.send(msg).then().catch(err => {
+            console.log("Wystąpił błąd przy wysłaniu wiadomości przez webhooka")
+        })
+    }
+}
+
 
 //Zmienne
 let zalogowany = false;
@@ -77,11 +85,7 @@ function CreateBot() {
         
         console.log(message.toAnsi())
         // console.log(msg)
-        if (userConfig.discordConnection.enable) {
-            if (sendMsgToWebhook) {
-                hook.send(`\`\`\`yaml\n${msg}\`\`\``)
-            }
-        }
+        if (sendMsgToWebhook) HookSend(`\`\`\`yaml\n${msg}\`\`\``)
     
         if (!zalogowany) {
             if (msg.includes("[GC2] Twoja nazwa jest zarejestrowana.")) {
@@ -185,7 +189,7 @@ function CreateBot() {
             }, 1 * 30 * 1000);
         } else {
             if (userConfig.discordConnection.enable) {
-                hook.send(`Kick - \`${powod}\``).then().catch(err => {console.log(`Webhook error - ${err}`)})
+                HookSend(`Kick - \`${powod}\``)
             }
     
             setTimeout(() => {
@@ -328,23 +332,17 @@ function DoCommand (command) {
             bot.end()
             CreateBot()
             console.log("Bot w trakcie relogu!")
-            if (userConfig.discordConnection.enable) {
-                hook.send("Bot w trakcie relogu!")
-            }
+            HookSend("Bot w trakcie relogu!")
             break
         case 'disconnect':
             bot.end()
             console.log("Bot wyszedł z serwera!")
-            if (userConfig.discordConnection.enable) {
-                hook.send("Bot wyszedł z serwera!")
-            }
+            HookSend("Bot wyszedł z serwera!")
             break
         case 'connect':
             CreateBot()
             console.log("Bot w trakcie łączenia się z serwerem!")
-            if (userConfig.discordConnection.enable) {
-                hook.send("Bot w trakcie łączenia się z serwerem!")
-            }
+            HookSend("Bot w trakcie łączenia się z serwerem!")
             break
         case 'jump':
             bot.setControlState('jump', true)
