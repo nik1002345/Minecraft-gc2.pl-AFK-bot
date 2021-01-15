@@ -365,8 +365,8 @@ function DoCommand (command) {
             embed.setDescription(players.join(", "))
             embed.addField("Liczba graczy:", `${players.length}`)
             HookSend(embed)
-            console.log(`Listra graczy na trybie:\n${playersToConsole.join(", ")}`)
-
+            console.log(chalk.blue(`Lista graczy na trybie:\n`) +
+            chalk.blueBright(`${playersToConsole.join(", ")}`))
             break
         case 'jump':
             bot.setControlState('jump', true)

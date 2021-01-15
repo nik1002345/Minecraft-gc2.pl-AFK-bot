@@ -1,3 +1,25 @@
+# Minecraftowy bot do AFK na gc2.pl
+
+## Opis
+
+Do użycia jest potrzebne środowisko [node.js](https://nodejs.org)
+
+Pseudoporadnik znajduje sie na Youtube pod tym [linkiem](https://youtu.be/j0dfhExnqAw)
+
+Po skonfigurowaniu bota w `config.yaml` wystarczy odpalić plik `Start.bat` i powinno wszystko działać
+
+W projekcie są używane paczuszki:
+- chalk
+- discord-webhook-node
+- discord.js
+- js-yaml
+- mineflayer
+- nodemon
+- prismarine-item
+
+![Screenshot](https://i.imgur.com/cif38DC.gif)
+# Plik `config.yaml`
+```yaml
 ######################################
 #                                    #
 #            Konfig bota             #
@@ -10,7 +32,7 @@
 username: 'Fajny_Nick123'
 
 # Hasło do konta
-password: 'TajneHaslo'
+password: 'SuperTajneHaslo'
 
 # Czterocyfrowy pin do konta, jeśli nie jest przypisany zostawić puste
 pin: ''
@@ -66,6 +88,7 @@ discordConnection:
 # i do niego się tepać, ponieważ /is ma skłonności do nie działania po wbiciu na tryb :p
 commands:
   - '/is'
+  - '/afk'
 
 # Automatyczne wejście do wagonika po wykonaniu komend
 # true - włączone
@@ -79,3 +102,4 @@ autoMount: false
 # true - włączone
 # false - wyłączone
 antyKick: false
+```

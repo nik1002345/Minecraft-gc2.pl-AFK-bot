@@ -101,7 +101,7 @@ module.exports = config => {
             }
         }
 
-        // Webhook
+        // Webhook URL
         if (!config.discordConnection.webhookURL) {
             ConfigLog("Brak podanego adresu URL do webhooka!")
             configErrors++
@@ -150,6 +150,6 @@ module.exports = config => {
         ConfigLog("Znalezionych błędów w konfiguracji: " + configErrors)
         process.exit()
     } else {
-        console.log(chalk.blue("[Config] ") + chalk.blueBright("Nieznaleziono żadnych błędów w konfiguracji!"))
+        console.log(chalk.blue("[Config] ") + chalk.blueBright("Nie znaleziono żadnych błędów w konfiguracji!"))
     }
 }
