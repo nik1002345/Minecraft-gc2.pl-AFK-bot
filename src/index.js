@@ -130,7 +130,7 @@ function CreateBot() {
                                 i++
                                 if (i > 30) return
                                 bot.mount(entity)
-                            }, 500);
+                            }, 600);
                         } else {
                             console.log(chalk.red("Brak wagonika"))
                         }
@@ -344,6 +344,30 @@ function DoCommand (command) {
             console.log("Bot w trakcie łączenia się z serwerem!")
             HookSend("Bot w trakcie łączenia się z serwerem!")
             break
+        case 'players-list':
+            const embed = new MessageBuilder()
+            embed.setTitle(`Lista graczy na trybie:`)
+            embed.setColor("#83eb34")
+            embed.setTimestamp()
+
+            var players = []
+            var playersToConsole = []
+            var temp = JSON.stringify(bot.players).split(`":{"username":"`)
+            temp.splice(0, 1)
+            temp.forEach(element => {
+                var temp2 = element.split('"')
+                players.push(`\`${temp2[0]}\``)
+                playersToConsole.push(temp2[0])
+            });
+            players.sort()
+            playersToConsole.sort()
+
+            embed.setDescription(players.join(", "))
+            embed.addField("Liczba graczy:", `${players.length}`)
+            HookSend(embed)
+            console.log(`Listra graczy na trybie:\n${playersToConsole.join(", ")}`)
+
+            break
         case 'jump':
             bot.setControlState('jump', true)
             bot.setControlState('jump', false)
@@ -408,7 +432,9 @@ if (userConfig.discordConnection.enable) {
         var config = userConfig.discordConnection
     
         if (!naTrybie) return
-    
+        
+        if (!guild) return
+        if (msg.webhookID) return
         if (guild.id != config.serverID) return
         if (channel.id != config.channelID) return
         if (!author) return

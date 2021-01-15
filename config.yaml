@@ -12,7 +12,7 @@ username: 'Fajny_Nick123'
 # Hasło do konta
 password: 'SuperTajneHaslo'
 
-# Czterocyfrowy pin do konta, jeśli nie jest przypisany do konta zostawić puste
+# Czterocyfrowy pin do konta, jeśli nie jest przypisany zostawić puste
 pin: ''
 
 # Tryb na który ma wbić bot - należy podać skrót trybu
@@ -73,7 +73,7 @@ commands:
 # false - wyłączone
 autoMount: false
 
-# Anty kick, do użycia na własną odpowiedzialność
+# Anty kick jeśli nie jest się w posiadaniu /afk, do użycia na własną odpowiedzialność
 # Do działania wymagane jest trzymanie w ostatnim slocie paska narzędzi (9),
 # jakiegoś bloczka, bądź nic nie robiącegu itemku jak np. patyk, węgiel, redstone itd.
 # A przy ewentualnym wyrzuceniu z serwera bot od razu połączy się z powrotem
