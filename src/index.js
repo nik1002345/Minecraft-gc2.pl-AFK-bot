@@ -19,15 +19,6 @@ const yaml = require("js-yaml")
 var readline = require("readline");
 var rl = readline.createInterface(process.stdin);
 
-// Admins usernames
-var adminsUsernames = {
-    wlasciciele: ["EsqL", "Morkazoid"],
-    pomocnicy: ["Piter26", "TBone151219", "MrSebastian", "Rexks", "kjbiskupscy", "Bella"],
-    tutorzy: ["ExIsT", "ilUnicornli", "Jikazuki", "Marta527", "_Shizouh"],
-    straznicy: ["Aivix", "LadyAnieQ", "Pawel654", "siwerek2", "X_MrJohn_X", "zlotan"],
-    czatownicy: []
-}
-
 // Load config
 const configFile = readFileSync(__dirname + `/../config.yaml`, "utf8");
 const userConfig = yaml.load(configFile);
@@ -39,6 +30,8 @@ ConfigCheck(userConfig)
 
 // Discord webhooks
 const { Webhook, MessageBuilder } = require('discord-webhook-node');
+const { listeners } = require('cluster');
+const { randomInt } = require('crypto');
 let hook;
 if (userConfig.discordConnection.enable) {
     hook = new Webhook(userConfig.discordConnection.webhookURL);
@@ -55,7 +48,7 @@ function HookSend(msg) {
 }
 
 
-//Zmienne
+// Variables
 let zalogowany = false;
 let wWyborzeTrybu = false;
 let naTrybie = false;
@@ -81,7 +74,7 @@ function CreateBot() {
     sendMsgToWebhook = false
     
     bot.on('message', function (message) {
-        var msg = (!message.text && message.extra ? message.extra.map(msg => msg.text).join("") : message.text)
+        let msg = (!message.text && message.extra ? message.extra.map(msg => msg.text).join("") : message.text)
         
         console.log(message.toAnsi())
         // console.log(msg)
@@ -112,12 +105,17 @@ function CreateBot() {
         if (naTrybie) {
             setTimeout(() => {
                 sendMsgToWebhook = true
-                var i = 0
-                for (let cmd of userConfig.commands) {
-                    i++
+                // let i = 0
+                // for (let cmd of userConfig.commands) {
+                //     i++
+                //     setTimeout(() => {
+                //         bot.chat(cmd)
+                //     }, i * 500);
+                // }
+                for (let i = 0; i < userConfig.commands.length; i++) {
                     setTimeout(() => {
-                        bot.chat(cmd)
-                    }, i * 500);
+                        bot.chat(userConfig.commands[i])
+                    }, (i + 1) * 500);
                 }
     
                 if (userConfig.autoMount) {
@@ -125,7 +123,7 @@ function CreateBot() {
                         //Wejście do wagonika
                         let entity = bot.nearestEntity((entity) => { return entity.type === 'object' })
                         if (entity) {
-                            var i = 0
+                            let i = 0
                             setInterval(() => {
                                 i++
                                 if (i > 30) return
@@ -139,6 +137,10 @@ function CreateBot() {
 
                 if (userConfig.antyKick) {
                     setTimeout(() => {
+                        if (userConfig.tryb == "cr") {
+                            let item = new Item(randomInt(1, 11), 1)
+                            bot.creative.setInventorySlot(44, item)
+                        }
                         bot.setQuickBarSlot(8)
                         setInterval(() => {
                             bot.activateItem(false)
@@ -160,8 +162,8 @@ function CreateBot() {
     // Kicks
     bot.on('kicked', (reason, loggedIn) => {
         naTrybie = false
-        var json = JSON.parse(reason)
-        var powod = (!json.text ? json.extra.map(msg => msg.text).join("") : json.text)
+        let json = JSON.parse(reason)
+        let powod = (!json.text ? json.extra.map(msg => msg.text).join("") : json.text)
         console.log(`Kick: ${powod}`)
         if (powod == "Zostałeś wyrzucony z serwera za nie ruszanie się przez więcej niż 6 minut.") {
             if (userConfig.antyKick) {
@@ -214,10 +216,10 @@ function CreateBot() {
     
     bot.on("windowOpen", async (window) => {
         if (!zalogowany && logowanie && !autologin && userConfig.pin) {
-            var pinStr = userConfig.pin.split("")
-            var pin = []
+            let pinStr = userConfig.pin.split("")
+            let pin = []
             for (let cyfra of pinStr) {
-                var cyfr
+                let cyfr
                 if (cyfra == "1") cyfr = "3"
                 if (cyfra == "2") cyfr = "4"
                 if (cyfra == "3") cyfr = "5"
@@ -231,12 +233,18 @@ function CreateBot() {
                 pin.push(parseInt(cyfr))
             }
             setTimeout(async () => {
-                var i = 0
-                for (let cyfra of pin) {
-                    i++
+                // var i = 0
+                // for (let cyfra of pin) {
+                //     i++
+                //     setTimeout(() => {
+                //         bot.clickWindow(cyfra, 0, 0)
+                //     }, i * 100);
+                // }
+
+                for (let i = 0; i < pin.length; i++) {
                     setTimeout(() => {
-                        bot.clickWindow(cyfra, 0, 0)
-                    }, i * 100);
+                        bot.clickWindow(pin[i], 0, 0)
+                    }, (i + 1) * 100);
                 }
                 setTimeout(() => {
                     bot.clickWindow(30, 0, 0)
@@ -245,14 +253,14 @@ function CreateBot() {
         }
     })
     
-    var podTryby = false
-    var tryb = userConfig.tryb
+    let podTryby = false
+    let tryb = userConfig.tryb
     if (tryb.startsWith("sb") || tryb.startsWith("mb")) podTryby = true
 
     bot.on("windowOpen", async (window) => {
         if ((zalogowany || autologin) || (!zalogowany && !logowanie && !autologin)) {
             if (!wWyborzeTrybu) {
-                var slotToClick = 0
+                let slotToClick = 0
                 if (tryb.startsWith("sb")) slotToClick = 11
                 if (tryb.startsWith("mb")) slotToClick = 15
                 if (tryb == "lb") slotToClick = 21
@@ -262,9 +270,10 @@ function CreateBot() {
                 setTimeout(async () => {
                     bot.clickWindow(slotToClick, 0, 0)
                     wWyborzeTrybu = true
+                    if (!podTryby) naTrybie = true
                 }, 400);
             } else if (wWyborzeTrybu && !naTrybie && podTryby) {
-                var slotToClick = 0
+                let slotToClick = 0
                 if (tryb == "sb1") slotToClick = 12
                 if (tryb == "sb2") slotToClick = 13
                 if (tryb == "sb3") slotToClick = 14
@@ -350,12 +359,12 @@ function DoCommand (command) {
             embed.setColor("#83eb34")
             embed.setTimestamp()
 
-            var players = []
-            var playersToConsole = []
-            var temp = JSON.stringify(bot.players).split(`":{"username":"`)
+            let players = []
+            let playersToConsole = []
+            let temp = JSON.stringify(bot.players).split(`":{"username":"`)
             temp.splice(0, 1)
             temp.forEach(element => {
-                var temp2 = element.split('"')
+                let temp2 = element.split('"')
                 players.push(`\`${temp2[0]}\``)
                 playersToConsole.push(temp2[0])
             });
@@ -429,7 +438,7 @@ if (userConfig.discordConnection.enable) {
     client.on('message', msg => {
         const {channel, guild, author, content} = msg
     
-        var config = userConfig.discordConnection
+        const config = userConfig.discordConnection
     
         if (!naTrybie) return
         

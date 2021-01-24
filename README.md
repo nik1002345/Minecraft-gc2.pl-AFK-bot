@@ -4,9 +4,11 @@
 
 Do użycia jest potrzebne środowisko [node.js](https://nodejs.org)
 
-Pseudoporadnik znajduje sie na Youtube pod tym [linkiem](https://youtu.be/j0dfhExnqAw)
+Pseudoporadnik znajduje sie na YouTube pod tym [linkiem](https://youtu.be/j0dfhExnqAw)
 
 Po skonfigurowaniu bota w `config.yaml` wystarczy odpalić plik `Start.bat` i powinno wszystko działać
+
+Bot automatycznie łączy się ponownie z serwerem [gc2.pl](https://gc2.pl) przy wyrzuceniu bądź restarcie.
 
 W projekcie są używane paczuszki:
 - chalk
@@ -16,6 +18,10 @@ W projekcie są używane paczuszki:
 - mineflayer
 - nodemon
 - prismarine-item
+
+W razie ewentualnych błędów bądź uwag można się ze mną skontaktować na Discordzie: **nik1002#0001**
+
+**Bota używasz na własną odpowiedzialność!**
 
 ![Screenshot](https://i.imgur.com/cif38DC.gif)
 # Plik `config.yaml`
